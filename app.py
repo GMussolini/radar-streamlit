@@ -21,10 +21,11 @@ DECLARE @ini DATE = :d_ini, @fim DATE = :d_fim;
 
 WITH notas AS (
     SELECT  ac.ColaboradorId,
+            ac.ContratoId,
             AVG((CAST(ac.Tecnico AS FLOAT)+CAST(ac.Comunicacao AS FLOAT)+CAST(ac.Comprometimento AS FLOAT))/3.0) AS NotaMedia
     FROM    AvaliacaoColaboradores ac
     WHERE   ac.Periodo BETWEEN @ini AND @fim
-    GROUP BY ac.ColaboradorId
+    GROUP BY ac.ColaboradorId, ac.ContratoId
 )
 SELECT  c.Id                          AS ContratoId,
         e.Nome                        AS Cliente,
@@ -38,7 +39,9 @@ FROM            Contratos c
 JOIN            Empresas e ON e.Id = c.EmpresaId   AND c.IsAtivo = 1
 JOIN            ProjetoEmpresaColaboradores pec
                 ON pec.ContratoId = c.Id           AND pec.Ativo = 1
-LEFT JOIN       notas n ON n.ColaboradorId = pec.ColaboradorId
+LEFT JOIN       notas n 
+                ON n.ColaboradorId = pec.ColaboradorId 
+               AND n.ContratoId = c.Id
 GROUP BY        c.Id, e.Nome, c.Objeto;
 """
 
