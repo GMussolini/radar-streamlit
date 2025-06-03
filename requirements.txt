@@ -1,6 +1,5 @@
-pandas==2.2.3
-python-dotenv==1.1.0
-python_dateutil==2.9.0.post0
-SQLAlchemy==2.0.41
-streamlit==1.44.0
-pymssql==2.2.8
+streamlit
+pandas
+python-dotenv
+sqlalchemy
+pyodbc

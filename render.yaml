@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: radar-streamlit
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.port $PORT --server.enableCORS false
+    envVars:
+      - key: DB_USER
+        value: USR_PRD_ControleRecursos
+      - key: DB_PASS
+        value: Diego#Prover#2022
+      - key: DB_HOST
+        value: proverwebdb01.database.windows.net
+      - key: DB_NAME
+        value: BdControleRecursos
