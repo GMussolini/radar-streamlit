@@ -8,9 +8,10 @@ from dotenv import load_dotenv
 from dateutil.relativedelta import relativedelta
 
 load_dotenv()
+
 ENGINE = create_engine(
-    f"mssql+pyodbc://{st.secrets['DB_USER']}:{st.secrets['DB_PASS']}@"
-    f"{st.secrets['DB_HOST']}/{st.secrets['DB_NAME']}"
+    f"mssql+pyodbc://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}@"
+    f"{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
     "?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes",
     future=True,
     pool_pre_ping=True,
